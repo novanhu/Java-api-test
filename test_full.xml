@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="API automation testing" parallel="tests" thread-count="2" group-by-instances="true">
+    <parameter name="environment" value="${environment}"/>
+
+    <test name="Thread1">
+        <classes>
+            <class name="com.ice.debug_test.PrintInfoTest"/>
+        </classes>
+    </test>
+
+    <test name="Thread2">
+        <classes>
+            <class name="com.ice.debug_test.PrintInfoTest"/>
+        </classes>
+    </test>
+
+</suite>
+
+
