@@ -1,6 +1,8 @@
 package com.ice.debug_test;
 
 import com.ice.happypass.utilities.TimeRelated;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -15,6 +17,8 @@ public class PrintInfoTest {
 
     long testStartTime;
     long testEndTime;
+    private  static  Logger logger = LoggerFactory.getLogger(PrintInfoTest.class);
+
     @BeforeClass()
     public void setup() throws InterruptedException {
         startTime = System.currentTimeMillis();
@@ -37,12 +41,14 @@ public class PrintInfoTest {
 
     @Test
     public void testVersionInfoWithoutAuth4725113() {
+        logger.info("Test#1 *******************************");
         Assert.assertTrue(true);
         System.out.println("Hello World!");
     }
 
     @Test
     public void testVersionInfoWithoutAuth3Failure() {
+        logger.info("Test#2 *******************************");
         System.out.println("Hello World, just test failures!");
         Assert.assertTrue(false,"Just test failure");
     }
