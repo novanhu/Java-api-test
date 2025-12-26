@@ -40,4 +40,10 @@ public class PrintInfoTest {
         Assert.assertTrue(true);
         System.out.println("Hello World!");
     }
+
+    @Test
+    public void testVersionInfoWithoutAuth3Failure() {
+        System.out.println("Hello World, just test failures!");
+        Assert.assertTrue(false,"Just test failure");
+    }
 }
