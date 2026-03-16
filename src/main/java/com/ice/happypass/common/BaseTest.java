@@ -1,7 +1,7 @@
 package com.ice.happypass.common;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ice.happypass.DTO.Result.TestResults;
 import com.ice.happypass.utilities.TimeRelated;
 import org.json.JSONException;
 import org.slf4j.Logger;
@@ -27,19 +27,12 @@ public class BaseTest {
     private static int userId = 0;
     private static String userpGuid = null;
     private static String cookie;
-
-
-
     public static String env;
-
     public static boolean bNonFunctionTest = false;
-
     private static DaemonThread t;
-
     public static Boolean testDone = false;
-
     private static Logger logger = LoggerFactory.getLogger(BaseTest.class);
-
+    public static TestResults testResults = new TestResults();
 
     @Parameters({"environment"})
     @BeforeSuite
@@ -49,7 +42,6 @@ public class BaseTest {
         startTime = System.currentTimeMillis();
         ConstantDefinition.getConstant(environment);
         env = environment;
-
         t = new DaemonThread();
         t.start(environment);
 
@@ -89,7 +81,6 @@ public class BaseTest {
         return "";
     }
 
-
     public static String getEnvName() {
         return env;
     }
@@ -97,7 +88,6 @@ public class BaseTest {
     @AfterSuite
     public void destroy() throws JSONException, JsonProcessingException {
         logger.info("Data clean up is done before testing end");
-
 
         if (!bNonFunctionTest) {
             logger.info("current test is functional test, so destroy API super user account token");
@@ -108,12 +98,10 @@ public class BaseTest {
         TimeRelated.covertTime(System.currentTimeMillis() - startTime);
 
         logger.info("The time to end testing is " + TimeRelated.getCurrentTimeStamp().toString());
-
+        testResults.writeToJsonFile("target/test_results.json");
         testDone = true;
 
         TimeRelated.doDelay(3000);
-
     }
-
 
 }
