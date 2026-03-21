@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.*;
-
+import org.testng.asserts.SoftAssert;
 import static com.ice.happypass.common.BaseTest.testResults;
 
 
@@ -24,6 +24,7 @@ public class PrintInfoTest extends BaseTest {
     TestResultDto singleTestResult;
     private String caseId = null;
     private  static  Logger logger = LoggerFactory.getLogger(PrintInfoTest.class);
+    SoftAssert softAssert = new SoftAssert();
 
     @BeforeClass()
     public void setup() throws InterruptedException {
@@ -69,7 +70,24 @@ public class PrintInfoTest extends BaseTest {
         caseId = "case_2";
         logger.info("Test#2 *******************************");
         System.out.println("Hello World, just test failures!");
-        Assert.assertTrue(false,"Just test failure");
-        singleTestResult.addFailedTestStepResult("Fail","fail");
+        String actual1 = "实际结果";
+        String actual2 = "正确";
+        softAssert.assertEquals(actual1, "test", "验证1失败");
+        softAssert.assertEquals(actual2, "test", "验证2失败");
+        softAssert.assertTrue(false, "验证3失败");
+
+        boolean finalResult = true;
+        try {
+            softAssert.assertAll();
+        } catch (AssertionError e) {
+            finalResult = false;
+        }
+        System.out.println("最终结果: " + finalResult);
+        if(finalResult){
+            singleTestResult.addPassedTestStepResult("Happy test result");
+        }else {
+            singleTestResult.addFailedTestStepResult("step1 do some test","actual result didn't match with expected result");
+        }
+        Assert.assertTrue(finalResult);
     }
 }
