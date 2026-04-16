@@ -23,6 +23,9 @@ public class ConstantDefinition {
     public static Properties props2 = null;
     public static Properties props3 = null;
     public static String rURL = null;
+    public static String databaseUrl = null;
+    public static String databaseUserName = null;
+    public static String databaseUserPassword = null;
 
     public static String cacheEndpoint;
 
@@ -68,8 +71,11 @@ public class ConstantDefinition {
             userName = props.getProperty("private.domain.user1.name");
             password = props.getProperty("private.domain.user1.password");
             rURL = baseURI;
-
             apiVersion = props.getProperty("apiVersion");
+
+            databaseUrl = props.getProperty("datasource.url");
+            databaseUserName = props.getProperty("datasource.username");
+            databaseUserPassword = props.getProperty("datasource.password");
 
 
             cacheEndpoint = props.getProperty("cacheEndpoint");
